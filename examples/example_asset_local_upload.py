@@ -12,9 +12,7 @@ def main():
     client_secret = "samplesecrete"
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
 
-    # STEP 1: Create a delivery job to get a job_id
-
-
+    # STEP 1: Create a delivery job
     # Metadata about the video reference to be uploaded
     asset_metadata = {
         "uploadType": "FILE_UPLOAD",
@@ -30,6 +28,7 @@ def main():
         }
     }
 
+    # STEP 2: Upload the actual video file
     try:
         # delivery_response = sdk_client.video_upload_service.create_delivery_job(asset_metadata)
         # batch_id = delivery_response.get('batch_id')
