@@ -28,11 +28,10 @@ def main():
         }
     }
 
-    # STEP 2: Upload the actual video file
     try:
-        # delivery_response = sdk_client.video_upload_service.create_delivery_job(asset_metadata)
-        # batch_id = delivery_response.get('batch_id')
-        batch_id = 123345
+        delivery_response = sdk_client.video_upload_service.create_delivery_job(asset_metadata)
+        batch_id = delivery_response.get('batch_id')
+        #batch_id = 123345
         if not batch_id:
             raise ValueError("Failed to create delivery job or retrieve job_id")
         print(f"Delivery job created successfully with job_id: {batch_id}")
@@ -40,6 +39,7 @@ def main():
         print(f"An error occurred while creating the delivery job: {e}")
         return
 
+    # STEP 2: Upload the actual video file
     #filepath = "/Users/bytedance/Downloads/test_northern_light.MOV"
     filepath = "/Users/bytedance/Downloads/IMG_9794.MOV"
     #filepath = "/Users/bytedance/Downloads/IMG_6331.MP4"
@@ -51,6 +51,13 @@ def main():
     except Exception as e:
         print(f"An error occurred during the video upload: {e}")
 
+    # STEP 3: Check the delivery status, this can take up to an hour until it become sucess
+    try:
+        batch_id = 7340109807384330245
+        delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)
+        print(delivery_status)
+    except Exception as e:
+        print(f"An error occurred querying delivery status: {e}")
 
 if __name__ == "__main__":
     main()

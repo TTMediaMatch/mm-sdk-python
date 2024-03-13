@@ -8,12 +8,19 @@ class VideoUpload(BaseClient):
 
     def create_delivery_job(self, metadata):
         """Create an upload delivery job with asset metadata."""
-        #response = requests.post(url, json=metadata, headers=self.headers)
         response = self._post(path="/openapi/upload/v1/video/deliveries/create", json=metadata)
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, job_id
         else:
             raise Exception("Failed to create delivery job")
+
+    def get_delivery_status(self, batch_id):
+        """Query an upload batch by ID"""
+        response = self._get(path=f"openapi/upload/v1/video/deliveries/{batch_id}")
+        if response.status_code == 200:
+            return response.json()  # Assuming this returns the batch_id, job_id
+        else:
+            raise Exception("Failed to query delivery job")
 
     def initialize_upload(self, file_path, batch_id, file_size, chunk_size, chunk_count):
         file_meta = {
