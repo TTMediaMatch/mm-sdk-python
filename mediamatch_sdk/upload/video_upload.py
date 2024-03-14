@@ -8,7 +8,7 @@ class VideoUpload(BaseClient):
 
     def create_delivery_job(self, metadata):
         """Create an upload delivery job with asset metadata."""
-        response = self._post(path="/openapi/upload/v1/video/deliveries/create", json=metadata)
+        response = self._post(path="/openapi/upload/v1/video/deliveries", json=metadata)
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, job_id
         else:
