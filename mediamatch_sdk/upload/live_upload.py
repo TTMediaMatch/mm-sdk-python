@@ -7,7 +7,7 @@ class LiveUpload(BaseClient):
         super().__init__(access_token)  # Initialize the BaseClient with the access token
 
     def create_delivery_job(self, metadata):
-        response = self._post(path="/openapi/upload/v1/live/deliveries/create", json=metadata)
+        response = self._post(path="/openapi/upload/v1/live/deliveries", json=metadata)
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, stream_info
         else:
