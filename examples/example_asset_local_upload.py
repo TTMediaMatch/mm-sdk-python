@@ -1,13 +1,7 @@
 from mediamatch_sdk.client import MediaMatchSDKClient
 
 def main():
-
     # STEP 1: Initialize the SDK
-
-    # if you have set environment variables (MM_CLIENT_ID, MM_CLIENT_SECRET)
-    # sdk_client = MediaMatchSDKClient()
-
-    # or pass in them explicitly
     client_id = "sampleid"
     client_secret = "samplesecrete"
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
@@ -34,7 +28,6 @@ def main():
     try:
         delivery_response = sdk_client.video_upload_service.create_delivery_job(asset_metadata)
         batch_id = delivery_response.get('data').get('batchID')
-        #batch_id = 7347682115435102213
         print(batch_id)
         if not batch_id:
             raise ValueError("Failed to create delivery job or retrieve job_id")
@@ -57,7 +50,6 @@ def main():
 
     # STEP 4: Check the delivery status, this can take up to an hour until it become success
     # try:
-    #     batch_id = 7340109807384330245
     #     delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)
     #     print(delivery_status)
     # except Exception as e:

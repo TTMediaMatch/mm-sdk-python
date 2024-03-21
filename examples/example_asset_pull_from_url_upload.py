@@ -1,13 +1,7 @@
 from mediamatch_sdk.client import MediaMatchSDKClient
 
 def main():
-
     # STEP 1: Initialize the SDK
-
-    # if you have set environment variables (MM_CLIENT_ID, MM_CLIENT_SECRET)
-    # sdk_client = MediaMatchSDKClient()
-
-    # or pass in them explicitly
     client_id = "cli_fcf0a39c9d04e22bdccf5c8f7e4b94c271f38aede738d01523ad101643ab8e7e"
     client_secret = "7a0388a17b3e75139fda645be6f052467a4781a71b6c22a006415803a050ffc9"
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
@@ -26,7 +20,6 @@ def main():
             "duration": 22,
             "title": "BigBuckBunny",
             "videoURL": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-
             #"videoURL": "https://bytedance-s3-va-mediamatch-upload.s3.amazonaws.com/ogc-tvod-us-east-1/sjq_test_05/a.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATOBZI4K7CFLAIWUP/20240319/us-east-1/s3/aws4_request&X-Amz-Date=20240319T231552Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=83a0f54f7e97361224171eaf155c494d2e8d1e0b6f3ef7d845418c261c5e9753"
         }
     }
@@ -34,17 +27,15 @@ def main():
     try:
         delivery_response = sdk_client.video_upload_service.create_delivery_job(asset_metadata)
         batch_id = delivery_response.get('data').get('batchID')
-        #batch_id = 7347682115435102213
         if not batch_id:
-            raise ValueError("Failed to create delivery job or retrieve job_id")
+            raise ValueError("Failed to create delivery job or retrieve batch_id")
         print(f"Delivery job created successfully with batch id: {batch_id}")
     except Exception as e:
         print(f"An error occurred while creating the delivery job: {e}")
         return
 
-    # STEP 4: Check the delivery status, this can take up to an hour until it become success
+    # STEP 3: Check the delivery status, this can take up to an hour until it become success
     # try:
-    #     batch_id = 7340109807384330245
     #     delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)
     #     print(delivery_status)
     # except Exception as e:

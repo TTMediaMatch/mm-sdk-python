@@ -2,6 +2,8 @@ import os
 import time
 
 from mediamatch_sdk.base_client import BaseClient
+from mediamatch_sdk.util.util import extract_error_message
+
 
 class VideoUpload(BaseClient):
     def __init__(self, access_token):
@@ -13,7 +15,8 @@ class VideoUpload(BaseClient):
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, job_id
         else:
-            raise Exception("Failed to create delivery job")
+            error_msg = extract_error_message(response)
+            raise Exception(f"Failed to create delivery job.\nError Message: {error_msg}")
 
     def get_delivery_status(self, batch_id):
         """Query an upload batch by ID"""
@@ -21,7 +24,8 @@ class VideoUpload(BaseClient):
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, job_id
         else:
-            raise Exception("Failed to query delivery job")
+            error_msg = extract_error_message(response)
+            raise Exception(f"Failed to query delivery job.\nError Message: {error_msg}")
 
     def initialize_upload(self, file_path, batch_id, file_size, chunk_size, chunk_count):
         file_name = os.path.basename(file_path)
@@ -41,7 +45,8 @@ class VideoUpload(BaseClient):
         if response.status_code == 200:
             return response.json()
         else:
-            raise Exception("Failed to initialize video upload")
+            error_msg = extract_error_message(response)
+            raise Exception(f"Failed to initialize video upload.\nError Message: {error_msg}")
 
     def upload_chunk(self, upload_id, chunk_data, chunk_start, chunk_end, total_size, max_retries=3):
         """Uploads a chunk of the video file with retry logic."""
@@ -58,7 +63,8 @@ class VideoUpload(BaseClient):
             if response.status_code in [200, 201, 206]:  # 201 completed, 206 partial uploaded
                 return response.json()
             else:
-                print(f"Chunk Upload Failed, status code {response.status_code}, Retry {attempt + 1} of {max_retries}")
+                error_msg = extract_error_message(response)
+                print(f"Chunk Upload Failed, status code {response.status_code}, Error Message: {error_msg}, Retry {attempt + 1} of {max_retries}")
         raise Exception("Failed to upload chunk after max retries.")
 
     # default chunk size 5MB

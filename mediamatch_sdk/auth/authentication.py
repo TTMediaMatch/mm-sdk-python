@@ -1,8 +1,11 @@
 import os
+import json  # Make sure to import json
 
 from mediamatch_sdk.base_client import BaseClient
 from requests.auth import HTTPBasicAuth
 import base64
+
+from mediamatch_sdk.util.util import extract_error_message
 
 
 class Authentication(BaseClient):
@@ -30,4 +33,5 @@ class Authentication(BaseClient):
             self.session.headers.update({"Authorization": f"Bearer {token}"})
             return token
         else:
-            raise Exception("Failed to authenticate")
+            error_msg = extract_error_message(response)
+            raise Exception(error_msg)
