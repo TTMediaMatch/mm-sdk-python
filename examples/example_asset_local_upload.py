@@ -11,7 +11,7 @@ def main():
     asset_metadata = {
         "uploadType": "FILE_UPLOAD",
         "assetCategory": "tv",
-        "deliveryTitle": "api test 1",
+        "deliveryTitle": "upload from local file",
         "uploadInfo": {
             "copyrightTerritories": [
                 "DZ"

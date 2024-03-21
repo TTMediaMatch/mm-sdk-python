@@ -2,6 +2,8 @@ from mediamatch_sdk.client import MediaMatchSDKClient
 
 def main():
     # STEP 1: Initialize the SDK
+    client_id = "sampleid"
+    client_secret = "samplesecrete"
     client_id = "cli_fcf0a39c9d04e22bdccf5c8f7e4b94c271f38aede738d01523ad101643ab8e7e"
     client_secret = "7a0388a17b3e75139fda645be6f052467a4781a71b6c22a006415803a050ffc9"
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
@@ -11,7 +13,7 @@ def main():
     asset_metadata = {
         "uploadType": "PULL_FROM_URL",
         "assetCategory": "tv",
-        "deliveryTitle": "api test 1 pull from google",
+        "deliveryTitle": "upload by pull from url - test",
         "uploadInfo": {
             "copyrightTerritories": [
                 "DZ"
