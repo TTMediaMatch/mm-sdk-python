@@ -1,4 +1,5 @@
 import os
+import time
 
 from mediamatch_sdk.base_client import BaseClient
 
@@ -23,8 +24,10 @@ class VideoUpload(BaseClient):
             raise Exception("Failed to query delivery job")
 
     def initialize_upload(self, file_path, batch_id, file_size, chunk_size, chunk_count):
+        file_name = os.path.basename(file_path)
+        print(f"The file name is: {file_name}")
         file_meta = {
-            'fileName': file_path,
+            'fileName': file_name,
             'batchID': str(batch_id),
             'sourceInfo': {
                 'videoSize': file_size,
@@ -94,7 +97,6 @@ class VideoUpload(BaseClient):
                 self.upload_chunk(upload_id, chunk_data, chunk_start, chunk_end, total_size)
                 chunk_start += chunk_size
                 chunk_index += 1
-
         return {"message": "Upload complete", "upload_id": upload_id}
 
 

@@ -1,6 +1,8 @@
 import os
 
 from mediamatch_sdk.base_client import BaseClient
+from requests.auth import HTTPBasicAuth
+import base64
 
 
 class Authentication(BaseClient):
@@ -14,13 +16,18 @@ class Authentication(BaseClient):
         super().__init__()
 
     def login(self):
-        # todo update
-        response = self._post(path="/openapi/token", json={"client_id": self.clientID, "client_secret": self.clientSecret})
+        grantType = {
+            'grantType': 'client_credential'
+        }
+
+        credentials = f"{self.clientID}:{self.clientSecret}"
+        encoded_credentials = base64.b64encode(credentials.encode()).decode()
+        print(encoded_credentials)
+        self.session.headers.update({"Authorization": f"Basic {encoded_credentials}"})
+        response = self._post(path="/openapi/auth/v1/token", json=grantType)
         if response.status_code == 200:
             token = response.json().get('data').get("access_token")
             self.session.headers.update({"Authorization": f"Bearer {token}"})
             return token
         else:
-            # todo remove
-            return 12345
-            #raise Exception("Failed to initialize video upload")
+            raise Exception("Failed to authenticate")

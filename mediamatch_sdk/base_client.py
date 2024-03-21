@@ -7,7 +7,7 @@ class BaseClient:
         self.session = requests.Session()
         if access_token:
             self.session.headers.update({"Authorization": f"Bearer {access_token}"})
-        self.session.headers.update({"x-tt-env": "boe_open_api"})
+        self.session.headers.update({"x-tt-env": "boe_mm_open_api"})
 
     def _get(self, path, **kwargs):
         return self.session.get(f"{self.base_url}/{path}", **kwargs)
