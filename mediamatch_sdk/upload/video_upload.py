@@ -13,7 +13,7 @@ class VideoUpload(BaseClient):
         """Create an upload delivery job with asset metadata."""
         response = self._post(path="/openapi/upload/v1/video/deliveries", json=metadata)
         if response.status_code == 200:
-            return response.json()  # Assuming this returns the batch_id, job_id
+            return response.json()  # Assuming this returns the batch_id
         else:
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to create delivery job.\nError Message: {error_msg}")
@@ -55,8 +55,6 @@ class VideoUpload(BaseClient):
             "Content-Length": str(chunk_end - chunk_start + 1),
             "Content-Type": "video",
         })
-        # todo remove
-        print(self.session.headers)
 
         for attempt in range(max_retries):
             response = self._put(path=f"/openapi/upload/v1/video/uploads/{upload_id}/chunk", data=chunk_data)

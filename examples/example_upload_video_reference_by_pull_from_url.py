@@ -2,10 +2,8 @@ from mediamatch_sdk.client import MediaMatchSDKClient
 
 def main():
     # STEP 1: Initialize the SDK
-    client_id = "sampleid"
-    client_secret = "samplesecrete"
     client_id = "cli_fcf0a39c9d04e22bdccf5c8f7e4b94c271f38aede738d01523ad101643ab8e7e"
-    client_secret = "7a0388a17b3e75139fda645be6f052467a4781a71b6c22a006415803a050ffc9"
+    client_secret = "7b310bac07a52c552589d2f9166c9873fadbc186141edac1c2892e63568c5fff"
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
 
     # STEP 2: Create a delivery job
@@ -22,7 +20,6 @@ def main():
             "duration": 22,
             "title": "BigBuckBunny",
             "videoURL": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            #"videoURL": "https://bytedance-s3-va-mediamatch-upload.s3.amazonaws.com/ogc-tvod-us-east-1/sjq_test_05/a.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATOBZI4K7CFLAIWUP/20240319/us-east-1/s3/aws4_request&X-Amz-Date=20240319T231552Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=83a0f54f7e97361224171eaf155c494d2e8d1e0b6f3ef7d845418c261c5e9753"
         }
     }
 

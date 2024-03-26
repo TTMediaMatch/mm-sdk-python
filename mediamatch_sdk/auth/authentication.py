@@ -29,7 +29,7 @@ class Authentication(BaseClient):
         self.session.headers.update({"Authorization": f"Basic {encoded_credentials}"})
         response = self._post(path="/openapi/auth/v1/token", json=grantType)
         if response.status_code == 200:
-            token = response.json().get('data').get("access_token")
+            token = response.json().get('data').get("authInfo").get("accessToken")
             self.session.headers.update({"Authorization": f"Bearer {token}"})
             return token
         else:
