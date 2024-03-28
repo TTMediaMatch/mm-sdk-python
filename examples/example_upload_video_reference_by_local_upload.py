@@ -16,8 +16,8 @@ def main():
             "copyrightTerritories": [
                 "DZ"
             ],
-            "referenceFilename": "IMG_9794.MOV",
-            #"referenceFilename": "IMG_1234.MOV",
+            #"referenceFilename": "IMG_9794.MOV",
+            "referenceFilename": "IMG_1234.MOV",
             #"referenceFilename": "test_northern_light.MOV",
             "duration": 22,
             "title": "api test movie"
@@ -37,8 +37,8 @@ def main():
         return
 
     # STEP 3: Upload the actual video file
-    filepath = "/Users/bytedance/Downloads/IMG_9794.MOV"
-    #filepath = "/Users/bytedance/Downloads/IMG_1234.MOV"
+    #filepath = "/Users/bytedance/Downloads/IMG_9794.MOV"
+    filepath = "/Users/bytedance/Downloads/IMG_1234.MOV"
     #filepath = "/Users/bytedance/Downloads/IMG_6331.MP4"
 
     # Proceed with the video upload
@@ -48,6 +48,8 @@ def main():
     except Exception as e:
         print(f"An error occurred during the video upload: {e}")
 
+    print(batch_id)
+    batch_id = 7350887631447883782
     # STEP 4: Check the delivery status, this can take up to an hour until it become success
     try:
         delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)
