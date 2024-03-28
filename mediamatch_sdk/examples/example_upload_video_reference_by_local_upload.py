@@ -41,6 +41,13 @@ def main():
     filepath = "/Users/bytedance/Downloads/IMG_1234.MOV"
     #filepath = "/Users/bytedance/Downloads/IMG_6331.MP4"
 
+    # STEP 4: Check the delivery status, this can take up to an hour until it become success
+    try:
+        delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)
+        print(delivery_status)
+    except Exception as e:
+        print(f"An error occurred querying delivery status: {e}")
+
     # Proceed with the video upload
     try:
         upload_response = sdk_client.video_upload_service.upload_video(filepath, batch_id, 5*1024**2)
@@ -48,8 +55,6 @@ def main():
     except Exception as e:
         print(f"An error occurred during the video upload: {e}")
 
-    print(batch_id)
-    batch_id = 7350887631447883782
     # STEP 4: Check the delivery status, this can take up to an hour until it become success
     try:
         delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)

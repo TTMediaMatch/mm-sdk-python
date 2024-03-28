@@ -4,7 +4,6 @@ import time
 from mediamatch_sdk.base_client import BaseClient
 from mediamatch_sdk.util.util import extract_error_message
 
-
 class VideoUpload(BaseClient):
     def __init__(self, access_token):
         super().__init__(access_token)  # Initialize the BaseClient with the access token
@@ -20,7 +19,7 @@ class VideoUpload(BaseClient):
 
     def get_delivery_status(self, batch_id):
         """Query an upload batch by ID"""
-        response = self._get(path=f"openapi/upload/v1/video/deliveries/{batch_id}")
+        response = self._get(path=f"/openapi/upload/v1/video/deliveries/{batch_id}")
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, job_id
         else:
@@ -61,11 +60,19 @@ class VideoUpload(BaseClient):
         for attempt in range(max_retries):
             response = self._put(path=f"/openapi/upload/v1/video/uploads/{upload_id}/chunk", data=chunk_data)
             if response.status_code in [200, 201, 206]:  # 201 completed, 206 partial uploaded
+                self.clean_up_upload_session()
                 return response.json()
             else:
+                self.clean_up_upload_session()
                 error_msg = extract_error_message(response)
                 print(f"Chunk Upload Failed, status code {response.status_code}, Error Message: {error_msg}, Retry {attempt + 1} of {max_retries}")
         raise Exception("Failed to upload chunk after max retries.")
+
+    # do not carry those headers in followup calls
+    def clean_up_upload_session(self):
+        del self.session.headers['Content-Range']
+        del self.session.headers['Content-Length']
+        del self.session.headers['Content-Type']
 
     # default chunk size 5MB
     def upload_video(self, filepath, batch_id, chunk_size=5242880):
