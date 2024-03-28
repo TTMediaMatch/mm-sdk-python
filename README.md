@@ -18,7 +18,7 @@ pip install git+https://github.com/TTMediaMatch/mm-sdk-python.git
 
 To start using the SDK, you'll first need to retrieve an access token using your `ClientID` and `ClientSecret`. An example of this can be found at:
 
-- [examples/example_authentication.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/examples/example_authentication.py)
+- [examples/example_authentication.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/mediamatch_sdk/examples/example_authentication.py)
 
 You have two options for authenticating your SDK client:
 
@@ -58,20 +58,20 @@ For uploading videos from a local file, follow these steps:
 1. Create a delivery batch job.
 2. Upload the file by chunks.
 
-See the example at [examples/example_upload_video_reference_by_local_upload.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/examples/example_upload_video_reference_by_local_upload.py).
+See the example at [examples/example_upload_video_reference_by_local_upload.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/mediamatch_sdk/examples/example_upload_video_reference_by_local_upload.py).
 
 #### Upload by URL
 
 To upload a video using its URL address, pass in the URL when creating the delivery job,
 refer to the example at:
 
-[examples/example_upload_video_reference_by_pull_from_url.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/examples/example_upload_video_reference_by_pull_from_url.py)
+[examples/example_upload_video_reference_by_pull_from_url.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/mediamatch_sdk/examples/example_upload_video_reference_by_pull_from_url.py)
 
 ### Live Upload
 
 To create a new live upload session and retrieve the streaming address, see:
 
-[examples/example_create_live_reference_delivery.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/examples/example_create_live_reference_delivery.py)
+[examples/example_create_live_reference_delivery.py](https://github.com/TTMediaMatch/mm-sdk-python/blob/main/mediamatch_sdk/examples/example_create_live_reference_delivery.py)
 
 
 ## API Specification
