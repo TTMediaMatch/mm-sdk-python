@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ttmediamatch",
-    version="0.1.0",
+    version="0.1.1",
     keywords=("pip", "ttmediamatch", "mm-sdk-python"),
     description="The Python SDK for Mediamatch",
     license="MIT Licence",

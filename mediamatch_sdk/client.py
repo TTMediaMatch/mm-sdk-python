@@ -1,6 +1,6 @@
-from .auth.authentication import Authentication
-from .upload.video_upload import VideoUpload
-from .upload.live_upload import LiveUpload
+from mediamatch_sdk.auth.authentication import Authentication
+from mediamatch_sdk.upload.video_upload import VideoUpload
+from mediamatch_sdk.upload.live_upload import LiveUpload
 
 
 class MediaMatchSDKClient:
