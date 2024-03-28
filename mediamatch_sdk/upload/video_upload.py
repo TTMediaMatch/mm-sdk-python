@@ -56,6 +56,8 @@ class VideoUpload(BaseClient):
             "Content-Type": "video",
         })
 
+        print(self.session.headers)
+
         for attempt in range(max_retries):
             response = self._put(path=f"/openapi/upload/v1/video/uploads/{upload_id}/chunk", data=chunk_data)
             if response.status_code in [200, 201, 206]:  # 201 completed, 206 partial uploaded
