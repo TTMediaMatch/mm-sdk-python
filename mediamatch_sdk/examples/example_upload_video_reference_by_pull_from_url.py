@@ -17,7 +17,6 @@ def main():
                 "DZ"
             ],
             "referenceFilename": "BigBuckBunny.mp4",
-            "duration": 22,
             "title": "BigBuckBunny",
             "videoURL": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
         }

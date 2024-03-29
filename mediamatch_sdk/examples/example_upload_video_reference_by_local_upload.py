@@ -19,7 +19,6 @@ def main():
             #"referenceFilename": "IMG_9794.MOV",
             "referenceFilename": "IMG_1234.MOV",
             #"referenceFilename": "test_northern_light.MOV",
-            "duration": 22,
             "title": "api test movie"
         }
     }
