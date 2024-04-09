@@ -3,12 +3,11 @@ import requests
 
 class BaseClient:
     def __init__(self, access_token=None):
-        self.base_url = "https://tiktok-mediamatch-boe-i18n.bytedance.net"
+        self.base_url = "https://mediamatch.tiktok.com"
         self.session = requests.Session()
         if access_token:
             self.access_token = access_token
             self.session.headers.update({"Authorization": f"Bearer {access_token}"})
-        self.session.headers.update({"x-tt-env": "boe_mm_open_api"})
 
     def _get(self, path, **kwargs):
         return self.session.get(f"{self.base_url}/{path}", **kwargs)
