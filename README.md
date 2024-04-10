@@ -78,4 +78,4 @@ To create a new live upload session and retrieve the streaming address, see:
 
 For more detailed information about the API and its functionalities, please refer to the API specification documentation:
 
-[API Specification Documentation](mediamatch help article url)
+[API Specification Documentation](https://mediamatch.tiktok.com/web/support/7347903566754873350)
