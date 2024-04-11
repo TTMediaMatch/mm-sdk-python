@@ -3,8 +3,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="ttmediamatch",
-    version="1.0.0",
+    name="mediamatch_sdk",
+    version="1.0.1",
     keywords=("pip", "ttmediamatch", "mm-sdk-python"),
     description="The Python SDK for Mediamatch",
     license="MIT Licence",
