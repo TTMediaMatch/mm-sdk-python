@@ -5,6 +5,8 @@ from mediamatch_sdk.asset.video_asset_deactivate import VideoAssetDeactivate
 from mediamatch_sdk.auth.authentication import Authentication
 from mediamatch_sdk.upload.video_upload import VideoUpload
 from mediamatch_sdk.upload.live_upload import LiveUpload
+from mediamatch_sdk.asset.live_match_query import LiveMatchQuery
+from mediamatch_sdk.asset.video_match_query import VideoMatchQuery
 
 
 class MediaMatchSDKClient:
@@ -12,6 +14,8 @@ class MediaMatchSDKClient:
         # Initialize the authentication component and log in to get the access token
         self.live_upload_service = None
         self.video_upload_service = None
+        self.live_match_query_service = None
+        self.video_match_query_service = None
         self.auth = Authentication(clientID, clientSecret)
         self.access_token = self.auth.login()
         self.video_asset_activate_service = None
@@ -30,6 +34,9 @@ class MediaMatchSDKClient:
         self.live_asset_activate_service = LiveAssetActivate(self.access_token)
         self.video_asset_deactivate_service = VideoAssetDeactivate(self.access_token)
         self.live_asset_deactivate_service = LiveAssetDeactivate(self.access_token)
+        self.video_match_query_service = VideoMatchQuery(self.access_token)
+        self.live_match_query_service = LiveMatchQuery(self.access_token)
+
     def refresh_token(self):
         self.access_token = self.auth.login()
         self.refresh_services()
