@@ -1,6 +1,6 @@
 # MM-SDK-Python
 
-Welcome to the MediaMatch Python SDK! This SDK allows you to interact with MediaMatch conveniently within your Python applications.
+Welcome to the MediaMatch Python SDK! This SDK allows you to interact with MediaMatch conveniently within your Python applications
 
 ## Installation
 
