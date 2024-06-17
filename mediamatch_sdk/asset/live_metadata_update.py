@@ -4,7 +4,7 @@ from mediamatch_sdk.base_client import BaseClient
 from mediamatch_sdk.util.util import extract_error_message
 
 
-class LiveAssetMetadataUpdate(BaseClient):
+class LiveMetadataUpdate(BaseClient):
     def __init__(self, access_token):
         super().__init__(access_token)  # Initialize the BaseClient with the access token
 
