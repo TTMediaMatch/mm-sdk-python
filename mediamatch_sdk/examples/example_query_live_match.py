@@ -9,9 +9,11 @@ def main():
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
 
     asset_id = 7319625717509160966
+    start_time = 1710000000
+    end_time = 1712678400
     # STEP 2: Check the delivery status, this can take up to an hour until it become success
     try:
-        matchs = sdk_client.live_match_query_service.get_live_match(asset_id)
+        matchs = sdk_client.live_match_query_service.get_live_match(asset_id,start_time,end_time)
         print(matchs)
     except Exception as e:
         print(f"An error occurred querying delivery status: {e}")
