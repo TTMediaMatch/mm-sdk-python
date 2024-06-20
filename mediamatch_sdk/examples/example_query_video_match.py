@@ -22,5 +22,12 @@ def main():
     except Exception as e:
         print(f"An error occurred querying delivery status: {e}")
 
+    # without page and pageSize, default value is page=1,pageSize=50
+    try:
+        matchs = sdk_client.video_match_query_service.get_video_match(asset_id,start_time,end_time)
+        print(matchs)
+    except Exception as e:
+        print(f"An error occurred querying delivery status: {e}")
+
 if __name__ == "__main__":
     main()
