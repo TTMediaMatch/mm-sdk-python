@@ -13,9 +13,11 @@ def main():
     start_time = 1710000000
     # 2024-04-10 00:00:00
     end_time = 1712678400
+    page = 1
+    pageSize = 50
     # STEP 2: Check the delivery status, this can take up to an hour until it become success
     try:
-        matchs = sdk_client.video_match_query_service.get_video_match(asset_id,start_time,end_time)
+        matchs = sdk_client.video_match_query_service.get_video_match(asset_id,start_time,end_time,page,pageSize)
         print(matchs)
     except Exception as e:
         print(f"An error occurred querying delivery status: {e}")
