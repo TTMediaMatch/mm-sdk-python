@@ -4,6 +4,7 @@ import time
 from mediamatch_sdk.base_client import BaseClient
 from mediamatch_sdk.util.util import extract_error_message
 
+
 class VideoUpload(BaseClient):
     def __init__(self, access_token):
         super().__init__(access_token)  # Initialize the BaseClient with the access token
@@ -65,7 +66,8 @@ class VideoUpload(BaseClient):
             else:
                 self.clean_up_upload_session()
                 error_msg = extract_error_message(response)
-                print(f"Chunk Upload Failed, status code {response.status_code}, Error Message: {error_msg}, Retry {attempt + 1} of {max_retries}")
+                print(
+                    f"Chunk Upload Failed, status code {response.status_code}, Error Message: {error_msg}, Retry {attempt + 1} of {max_retries}")
         raise Exception("Failed to upload chunk after max retries.")
 
     # do not carry those headers in followup calls
