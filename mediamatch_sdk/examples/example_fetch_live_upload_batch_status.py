@@ -11,7 +11,7 @@ def main():
     batch_id = 7410872219431337990
     # STEP 2: Check the delivery status, this can take up to an hour until it become success
     try:
-        delivery_status = sdk_client.video_upload_service.get_delivery_status(batch_id)
+        delivery_status = sdk_client.live_upload_service.get_delivery_status(batch_id)
         print(delivery_status)
     except Exception as e:
         print(f"An error occurred querying delivery status: {e}")
