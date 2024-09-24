@@ -49,7 +49,8 @@ class VideoUpload(BaseClient):
             raise Exception(f"Failed to initialize video upload.\nError Message: {error_msg}")
 
     # enforce content_type in the future, currently the server side does not enforce content_type check
-    def upload_chunk(self, upload_id, chunk_data, chunk_start, chunk_end, total_size, content_type="video/mp4", max_retries=3):
+    def upload_chunk(self, upload_id, chunk_data, chunk_start, chunk_end, total_size, content_type="video/mp4",
+                     max_retries=3):
         """Uploads a chunk of the video file with retry logic."""
         self.session.headers.update({
             "Content-Range": f"bytes {chunk_start}-{chunk_end}/{total_size}",

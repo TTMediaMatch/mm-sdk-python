@@ -23,3 +23,11 @@ class LiveUpload(BaseClient):
         else:
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to get live delivery url.\nError Message: {error_msg}")
+
+    def get_delivery_status(self, batch_id):
+        response = self._get(path=f"/openapi/upload/v1/live/deliveries/{batch_id}")
+        if response.status_code == 200:
+            return response.json()  # Assuming this returns the stream_info
+        else:
+            error_msg = extract_error_message(response)
+            raise Exception(f"Failed to get live delivery url.\nError Message: {error_msg}")
