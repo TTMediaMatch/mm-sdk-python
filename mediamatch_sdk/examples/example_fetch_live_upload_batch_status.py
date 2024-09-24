@@ -4,8 +4,8 @@ from mediamatch_sdk.client import MediaMatchSDKClient
 
 def main():
     # STEP 1: Initialize the SDK
-    client_id = "cli_8eea5fd6c584ab440ffc71f27da395b1c415dceea6e1bdac522002b04f71bf67"
-    client_secret = "4ae0fb00293ac805f52ab4021c432d7f5acf75bba964a72114987de0818eeb6e"
+    client_id = "cli_fcf0a39c9d04e22bdccf5c8f7e4b94c271f38aede738d01523ad101643ab8e7e"
+    client_secret = "7b310bac07a52c552589d2f9166c9873fadbc186141edac1c2892e63568c5fff"
     sdk_client = MediaMatchSDKClient(client_id, client_secret)
 
     batch_id = 7410872219431337990
