@@ -21,17 +21,6 @@ class VideoUpload(BaseClient):
     def get_delivery_status(self, batch_id):
         """Query an upload batch by ID"""
         response = self._get(path=f"/openapi/upload/v1/video/deliveries/{batch_id}")
-        # 打印请求信息
-        print("Request URL:", response.request.url)
-        print("Request Method:", response.request.method)
-        print("Request Headers:", response.request.headers)
-        print("Request Body:", response.request.body)
-
-        # 打印响应信息
-        print("\nResponse Status Code:", response.status_code)
-        print("Response Headers:", response.headers)
-        print("Response Content:", response.text)
-
         if response.status_code == 200:
             return response.json()  # Assuming this returns the batch_id, job_id
         else:
@@ -60,7 +49,8 @@ class VideoUpload(BaseClient):
             raise Exception(f"Failed to initialize video upload.\nError Message: {error_msg}")
 
     # enforce content_type in the future, currently the server side does not enforce content_type check
-    def upload_chunk(self, upload_id, chunk_data, chunk_start, chunk_end, total_size, content_type="video/mp4", max_retries=3):
+    def upload_chunk(self, upload_id, chunk_data, chunk_start, chunk_end, total_size, content_type="video/mp4",
+                     max_retries=3):
         """Uploads a chunk of the video file with retry logic."""
         self.session.headers.update({
             "Content-Range": f"bytes {chunk_start}-{chunk_end}/{total_size}",
