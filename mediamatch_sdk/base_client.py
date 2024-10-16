@@ -8,6 +8,9 @@ class BaseClient:
         if access_token:
             self.access_token = access_token
             self.session.headers.update({"Authorization": f"Bearer {access_token}"})
+            # TODO: panyisheng - rm ppe env
+            self.session.headers.update({"x-tt-env": "ppe_policy_open_api"})
+            self.session.headers.update({"x-use-ppe": "1"})
 
     def _get(self, path, **kwargs):
         return self.session.get(f"{self.base_url}/{path}", **kwargs)
