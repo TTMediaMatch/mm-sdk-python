@@ -157,6 +157,20 @@ class VideoAsset(BaseClient):
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to query match info.\nError Message: {error_msg}")
 
+    def query_video_match(self, retrieve_cond: MatchInfoRetrieve):
+        query_string = retrieve_cond.conv_query_param()
+        api_path = f"/openapi/asset/v1/video/assets/matchinfo?{query_string}"
+        if retrieve_cond.asset_id is not None and retrieve_cond.asset_id > 0:
+            asset_id = retrieve_cond.asset_id
+            api_path = f"openapi/asset/v1/video/assets/{asset_id}/matchinfo?{query_string}"
+        response = self._get(path=api_path)
+
+        if response.status_code == 200:
+            return response.json()  # Assuming this returns the stream_info
+        else:
+            error_msg = extract_error_message(response)
+            raise Exception(f"Failed to query match info.\nError Message: {error_msg}")
+
     def __get_video_match_count__(self, retrieve_cond: MatchInfoRetrieve) -> int:
         resp = self.query_video_match(retrieve_cond=retrieve_cond.deep_copy().set_pagination(page=1, pageSize=5))
         return resp.get('data', {}).get('total', 0)
