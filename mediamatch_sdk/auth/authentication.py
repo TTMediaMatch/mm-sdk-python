@@ -24,7 +24,7 @@ class Authentication(BaseClient):
 
         credentials = f"{self.clientID}:{self.clientSecret}"
         encoded_credentials = base64.b64encode(credentials.encode()).decode()
-        # print(encoded_credentials)
+        print(encoded_credentials)
         self.session.headers.update({"Authorization": f"Basic {encoded_credentials}"})
         response = self._post(path="/openapi/auth/v1/token", json=grantType)
         if response.status_code == 200:

@@ -1,11 +1,9 @@
 import time, math
-import sys
-import concurrent.futures
-from tqdm import tqdm
 import json
 
 from mediamatch_sdk.asset.model import MatchInfoRetrieve, PolicyAction, DisputeStatus
 from mediamatch_sdk.client import MediaMatchSDKClient
+
 
 def main():
     # STEP 1: Initialize the SDK
@@ -79,6 +77,7 @@ def main():
     print("use retrieve_all_live_match to retrieve collect all match info with some filters")
     print("retrieve all the match info with filters, count=", len(all_match_info))
     print("sample data for the whole match info, data=", json.dumps(all_match_info[:5]))
+
 
 if __name__ == "__main__":
     main()

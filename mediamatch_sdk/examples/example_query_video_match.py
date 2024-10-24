@@ -1,7 +1,6 @@
 import time, math
 import sys
 import concurrent.futures
-from tqdm import tqdm
 import json
 
 from mediamatch_sdk.asset.model import MatchInfoRetrieve, PolicyAction, DisputeStatus

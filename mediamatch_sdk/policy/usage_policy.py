@@ -11,8 +11,5 @@ class UsagePolicy(BaseClient):
         if response.status_code == 200:
             return response.json()
         else:
-            print("Response Status Code:", response.status_code)
-            print("Response Headers:", response.headers)
-            print("Response Content:", response.text)
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to retrieve usage policy.\nError Message: {error_msg}")

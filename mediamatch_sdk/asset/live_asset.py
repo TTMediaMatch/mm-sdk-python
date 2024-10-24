@@ -52,9 +52,6 @@ class LiveAsset(BaseClient):
         if response.status_code == 200:
             return response.json()
         else:
-            print("\nResponse Status Code:", response.status_code)
-            print("Response Headers:", response.headers)
-            print("Response Content:", response.text)
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to query the metadata of video asset.\nError Message: {error_msg}")
 
@@ -74,25 +71,15 @@ class LiveAsset(BaseClient):
             futures = [executor.submit(self.query_live_asset_metadata, i + 1, self.default_retrieve_page_size,
                                        contentCategories, tags) for i in range(total_page_number)]
 
-            # TODO: rm debug log
-            start_time = time.perf_counter_ns()
-            # for future in tqdm(concurrent.futures.as_completed(futures), total=len(futures), desc="Processing tasks"):
             for future in concurrent.futures.as_completed(futures):
                 result = future.result()
                 page = result.get("data").get("page")
                 meta_info_list = result.get("data").get("metadataInfoList")
                 asset_metadata_dict[page] = meta_info_list
                 cur_asset_count += len(meta_info_list)
-                print("cur_asset_count", cur_asset_count)
-                # self.print_progress_bar(cur_asset_count, asset_total_count)
-                print("finish get page, page_num=", page)
-                # results.append(result)
-            print("cost %s ms", (time.perf_counter_ns() - start_time) / 1000000)
         asset_metadata_list = []
         for i in range(total_page_number):
             asset_metadata_list.extend(asset_metadata_dict[i + 1])
-        print("asset_metadata_list, len=", len(asset_metadata_list))
-        print("top 20 metadata list, ", asset_metadata_list[:20])
         return asset_metadata_list
 
     def get_live_asset_other_info(self, asset_id):
@@ -113,22 +100,11 @@ class LiveAsset(BaseClient):
             for contentCategory in contentCategories:
                 params.append(('contentCategories', contentCategory.value))
         query_string = urlencode(params)
-        # print("query_string: ", query_string)
 
         response = self._get(path=f"/openapi/asset/v1/live/assets/information?{query_string}")
-        # print("Response Content:", response.text)
         if response.status_code == 200:
             return response.json()
         else:
-            print("Request URL:", response.request.url)
-            print("Request Method:", response.request.method)
-            print("Request Headers:", response.request.headers)
-            print("Request Body:", response.request.body)
-
-            # 打印响应信息
-            print("\nResponse Status Code:", response.status_code)
-            print("Response Headers:", response.headers)
-            print("Response Content:", response.text)
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to query the other information of video asset.\nError Message: {error_msg}")
 
@@ -144,25 +120,15 @@ class LiveAsset(BaseClient):
             futures = [executor.submit(self.query_live_asset_other_info, i + 1, self.default_retrieve_page_size,
                                        contentCategories) for i in range(total_page_number)]
 
-            # TODO: rm debug log
-            start_time = time.perf_counter_ns()
-            # for future in tqdm(concurrent.futures.as_completed(futures), total=len(futures), desc="Processing tasks"):
             for future in concurrent.futures.as_completed(futures):
                 result = future.result()
                 page = result.get("data").get("page")
                 other_info_list = result.get("data").get("otherInfoList")
                 asset_other_info_dict[page] = other_info_list
                 cur_asset_count += len(other_info_list)
-                print("cur_asset_count", cur_asset_count)
-                # self.print_progress_bar(cur_asset_count, asset_total_count)
-                print("finish get page, page_num=", page)
-                # results.append(result)
-            print("cost %s ms", (time.perf_counter_ns() - start_time) / 1000000)
         asset_other_info_list = []
         for i in range(total_page_number):
             asset_other_info_list.extend(asset_other_info_dict[i + 1])
-        print("asset_other_info_list, len=", len(asset_other_info_list))
-        print("top 20 metadata list, ", asset_other_info_list[:20])
         return asset_other_info_list
 
     def activate_live_asset(self, asset_id):
@@ -183,11 +149,9 @@ class LiveAsset(BaseClient):
 
     def get_live_match(self, asset_id, start_time, end_time, page=None, pageSize=None):
         if (page == None or pageSize == None):
-            response = self._get(
-                path=f"openapi/asset/v1/live/assets/{asset_id}/matchinfo?startTime={start_time}&endTime={end_time}")
+            response = self._get(path=f"openapi/asset/v1/live/assets/{asset_id}/matchinfo?startTime={start_time}&endTime={end_time}")
         else:
-            response = self._get(
-                path=f"openapi/asset/v1/live/assets/{asset_id}/matchinfo?startTime={start_time}&endTime={end_time}&page={page}&pageSize={pageSize}")
+            response = self._get(path=f"openapi/asset/v1/live/assets/{asset_id}/matchinfo?startTime={start_time}&endTime={end_time}&page={page}&pageSize={pageSize}")
         if response.status_code == 200:
             return response.json()  # Assuming this returns the stream_info
         else:
@@ -206,9 +170,6 @@ class LiveAsset(BaseClient):
             return response.json()  # Assuming this returns the stream_info
         else:
             error_msg = extract_error_message(response)
-            print("Response Status Code:", response.status_code)
-            print("Response Headers:", response.headers)
-            print("Response Content:", response.text)
             raise Exception(f"Failed to query match info.\nError Message: {error_msg}")
 
     def __get_live_match_count__(self, retrieve_cond: MatchInfoRetrieve) -> int:
@@ -230,24 +191,15 @@ class LiveAsset(BaseClient):
         match_info_dict = {}
         cur_match_count = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-            futures = [executor.submit(self.query_live_match, retrieve_cond.deep_copy().set_pagination(page=i + 1,
-                                                                                                       pageSize=self.default_retrieve_page_size))
+            futures = [executor.submit(self.query_live_match, retrieve_cond.deep_copy().set_pagination(page=i + 1, pageSize=self.default_retrieve_page_size))
                        for i in range(total_page_number)]
 
-            # TODO: rm debug log
-            start_time = time.perf_counter_ns()
-            # for future in tqdm(concurrent.futures.as_completed(futures), total=len(futures), desc="Processing tasks"):
             for future in concurrent.futures.as_completed(futures):
                 result = future.result()
                 page = result.get("data").get("page")
                 match_info_list = result.get("data").get("matchInfos")
                 match_info_dict[page] = match_info_list
                 cur_match_count += len(match_info_list)
-                # print("cur_match_count", cur_match_count)
-                # self.print_progress_bar(cur_match_count, asset_total_count)
-                print("finish get page, page_num=", page)
-                # results.append(result)
-            print("cost %s ms", (time.perf_counter_ns() - start_time) / 1000000)
         match_info_list = []
         for i in range(total_page_number):
             match_info_list.extend(match_info_dict[i + 1])
