@@ -90,7 +90,7 @@ class VideoAsset(BaseClient):
             raise Exception(f"Failed to get other information of this video asset.\nError Message: {error_msg}")
 
     def query_video_asset_other_info(self, page: int = None, pageSize: int = None,
-                                     contentCategories: list[ContentCategory] = None):
+                                     contentCategories: list[ContentCategory] = None, customID: str = None):
         params = []
         if page is not None:
             params.append(('page', page))
@@ -99,6 +99,8 @@ class VideoAsset(BaseClient):
         if contentCategories is not None:
             for contentCategory in contentCategories:
                 params.append(('contentCategories', contentCategory.value))
+        if customID is not None:
+            params.append(('customID', customID))
         query_string = urlencode(params)
         response = self._get(path=f"/openapi/asset/v1/video/assets/information?{query_string}")
         if response.status_code == 200:

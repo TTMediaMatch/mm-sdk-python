@@ -1,7 +1,7 @@
-from mediamatch_sdk.client import MediaMatchSDKClient
-from mediamatch_sdk.asset.model import ContentCategory
-
 import json
+
+from mediamatch_sdk.asset.model import ContentCategory
+from mediamatch_sdk.client import MediaMatchSDKClient
 
 
 def main():
@@ -45,6 +45,13 @@ def main():
         )
         print("retrieve all the asset other_info with filters, count=", len(asset_other_info_all))
         print("sample data for the whole asset other_info, data=", json.dumps(asset_other_info_all[:20]))
+
+        # Option 4: query video other_info with customID
+        asset_other_info_list = sdk_client.video_asset_service.query_video_asset_other_info(
+            customID="xxxxx"
+        )
+        print("query video other_info with customID")
+        print(json.dumps(asset_other_info_list))
 
     except Exception as e:
         print(f"An error occurred getting the other information of this asset: {e}")
