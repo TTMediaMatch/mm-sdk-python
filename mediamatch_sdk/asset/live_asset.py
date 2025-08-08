@@ -90,7 +90,7 @@ class LiveAsset(BaseClient):
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to get other information of this live asset.\nError Message: {error_msg}")
 
-    def query_live_asset_other_info(self, page: int = None, pageSize: int = None, contentCategories: list = None):
+    def query_live_asset_other_info(self, page: int = None, pageSize: int = None, contentCategories: list = None, customID: str = None):
         params = []
         if page is not None:
             params.append(('page', page))
@@ -99,6 +99,8 @@ class LiveAsset(BaseClient):
         if contentCategories is not None:
             for contentCategory in contentCategories:
                 params.append(('contentCategories', contentCategory.value))
+        if customID is not None:
+            params.append(('customID', customID))
         query_string = urlencode(params)
 
         response = self._get(path=f"/openapi/asset/v1/live/assets/information?{query_string}")
