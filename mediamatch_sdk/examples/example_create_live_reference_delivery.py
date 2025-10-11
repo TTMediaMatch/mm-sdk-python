@@ -15,7 +15,8 @@ def main():
             "copyrightTerritories": [
                 "DZ"
             ],
-            "title": "api test - live asset"
+            "title": "api test - live asset",
+            "spotlightIPName": "sample spotlightIP name",
         }
     }
 

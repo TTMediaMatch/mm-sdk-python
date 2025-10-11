@@ -14,6 +14,7 @@ def main():
             "copyrightTerritories": [
                 "DZ"
             ],
+            "spotlightIPName": "sample spotlightIP name",
         }
     }
     asset_id = 7219207559314931717

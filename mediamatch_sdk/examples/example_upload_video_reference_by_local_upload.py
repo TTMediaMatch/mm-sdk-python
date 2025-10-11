@@ -19,7 +19,8 @@ def main():
             #"referenceFilename": "IMG_9794.MOV",
             "referenceFilename": "IMG_1234.MOV",
             #"referenceFilename": "test_northern_light.MOV",
-            "title": "api test movie"
+            "title": "api test movie",
+            "spotlightIPName": "sample spotlightIP name",
         }
     }
 

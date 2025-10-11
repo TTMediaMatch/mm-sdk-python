@@ -27,7 +27,8 @@ def main():
         filtered_metadata_list = sdk_client.video_asset_service.query_video_asset_metadata(
             page=1, pageSize=20,
             contentCategories=[ContentCategory.tv, ContentCategory.sports],
-            tags=['entretenimento']
+            tags=['entretenimento'],
+            spotlightIPNames=['sampleIP1', 'sampleIP2']
         )
         print("query video metadata with filters page by page")
         print(json.dumps(filtered_metadata_list))
@@ -40,7 +41,8 @@ def main():
         # You could also retrieve all the asset metadata with some filters
         filtered_asset_metadata_all = sdk_client.video_asset_service.retrieve_all_asset_metadata(
             contentCategories=[ContentCategory.tv, ContentCategory.sports],
-            tags=['entretenimento']
+            tags=['entretenimento'],
+            spotlightIPNames=['sampleIP1', 'sampleIP2']
         )
         print("retrieve all the asset metadata with filters, count=", len(filtered_asset_metadata_all))
         print("sample data for the whole asset metadata, data=", json.dumps(filtered_asset_metadata_all[:20]))

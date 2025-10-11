@@ -33,7 +33,8 @@ class LiveAsset(BaseClient):
     def query_live_asset_metadata(self,
                                   page: int = None, pageSize: int = None,
                                   contentCategories: list[ContentCategory] = None,
-                                  tags: list[str] = None
+                                  tags: list[str] = None,
+                                  spotlightIPNames: list[str] = None
                                   ):
         params = []
         if page is not None:
@@ -46,6 +47,9 @@ class LiveAsset(BaseClient):
         if tags is not None:
             for tag in tags:
                 params.append(('tags', tag))
+        if spotlightIPNames is not None:
+            for spotlightIPName in spotlightIPNames:
+                params.append(('spotlightIPNames', spotlightIPName))
 
         query_string = urlencode(params)
         response = self._get(path=f"/openapi/asset/v1/live/assets/metadata?{query_string}")
@@ -59,7 +63,8 @@ class LiveAsset(BaseClient):
         resp = self.query_live_asset_metadata(page=1, pageSize=5, contentCategories=contentCategories, tags=tags)
         return resp.get('data', {}).get('total', 0)
 
-    def retrieve_all_asset_metadata(self, contentCategories: list[str] = None, tags: list[str] = None):
+    def retrieve_all_asset_metadata(self, contentCategories: list[str] = None, tags: list[str] = None,
+                                    spotlightIPNames: list[str] = None):
         asset_total_count = self.__get_asset_total_count__(contentCategories, tags)
         total_page_number = math.ceil(asset_total_count / self.default_retrieve_page_size)
         print("retrieve_all_asset_metadata, total_page_number:", total_page_number)
@@ -69,7 +74,7 @@ class LiveAsset(BaseClient):
         cur_asset_count = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(self.query_live_asset_metadata, i + 1, self.default_retrieve_page_size,
-                                       contentCategories, tags) for i in range(total_page_number)]
+                                       contentCategories, tags, spotlightIPNames) for i in range(total_page_number)]
 
             for future in concurrent.futures.as_completed(futures):
                 result = future.result()
@@ -110,7 +115,7 @@ class LiveAsset(BaseClient):
             error_msg = extract_error_message(response)
             raise Exception(f"Failed to query the other information of video asset.\nError Message: {error_msg}")
 
-    def retrieve_all_asset_other_info(self, contentCategories: list[str] = None):
+    def retrieve_all_asset_other_info(self, contentCategories: list[str] = None, customID: str = None):
         asset_total_count = self.__get_asset_total_count__(contentCategories=contentCategories)
         total_page_number = math.ceil(asset_total_count / self.default_retrieve_page_size)
         print("retrieve_all_asset_other_info, total_page_number:", total_page_number)
@@ -120,7 +125,7 @@ class LiveAsset(BaseClient):
         cur_asset_count = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(self.query_live_asset_other_info, i + 1, self.default_retrieve_page_size,
-                                       contentCategories) for i in range(total_page_number)]
+                                       contentCategories, customID) for i in range(total_page_number)]
 
             for future in concurrent.futures.as_completed(futures):
                 result = future.result()

@@ -25,10 +25,11 @@ def main():
         print("query live other_info with page and pageSize")
         print(json.dumps(other_info_list))
 
-        # query live other_info with filtered contentCategories and tags
+        # query live other_info with filtered contentCategories and tags and customID
         filtered_other_info_list = sdk_client.live_asset_service.query_live_asset_other_info(
             page=1, pageSize=20,
-            contentCategories=[ContentCategory.tv, ContentCategory.sports]
+            contentCategories=[ContentCategory.tv, ContentCategory.sports],
+            customID='sample customID'
         )
         print("query live other_info with filters page by page")
         print(json.dumps(filtered_other_info_list))
@@ -41,6 +42,7 @@ def main():
         # You could also retrieve all the asset metadata with some filters
         asset_other_info_all = sdk_client.live_asset_service.retrieve_all_asset_other_info(
             contentCategories=[ContentCategory.tv, ContentCategory.sports],
+            customID='sample customID'
         )
         print("retrieve all the asset other_info with filters, count=", len(asset_other_info_all))
         print("sample data for the whole asset other_info, data=", json.dumps(asset_other_info_all[:20]))
