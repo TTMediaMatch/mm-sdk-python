@@ -18,7 +18,8 @@ def main():
             ],
             "referenceFilename": "BigBuckBunny.mp4",
             "title": "BigBuckBunny",
-            "videoURL": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            "videoURL": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            "spotlightIPName": "sample spotlightIP name",
         }
     }
 
